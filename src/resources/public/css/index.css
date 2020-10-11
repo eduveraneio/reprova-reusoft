@@ -7,6 +7,11 @@ body {
   text-align: center;
 }
 
+
+.separator{
+	padding: 12pt;
+}
+
 hr {
   margin-top: 20pt;
   margin-bottom: 20pt;
@@ -14,10 +19,6 @@ hr {
 
 h2 {
 	margin-top: 0;
-}
-
-div.separator{
-	padding: 12pt;
 }
 
 .questions-table {

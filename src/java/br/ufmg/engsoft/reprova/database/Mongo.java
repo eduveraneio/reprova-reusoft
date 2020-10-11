@@ -21,8 +21,8 @@ public class Mongo {
 	/**
 	 * Full connection string, obtained from 'mongodb' environment variable.
 	 */
-	protected static final String endpoint = "mongodb://admin:123456@localhost:27017/database?authSource=admin&connectTimeoutMS=5000";
-	//protected static final String endpoint = "mongodb+srv://reprova:reprova@cluster0.wrhdl.mongodb.net/reprova?retryWrites=true&w=majority";
+	//protected static final String endpoint = "mongodb://admin:123456@localhost:27017/database?authSource=admin&connectTimeoutMS=5000";
+	protected static final String endpoint = "mongodb+srv://reprova:reprova@cluster0.wrhdl.mongodb.net/reprova?retryWrites=true&w=majority";
 
 	/**
 	 * The mongodb driver instance.

@@ -235,22 +235,33 @@ const token = url.searchParams.get("token");
 
 let questionsDataTable;
 
-$(document).ready(
-  async () => {
-    if (token)
-      $('#new-question').click(
-        () => {
-          let location = '/question.html';
-
-          if (token)
-            location += '?token=' + token;
-
-          window.location = location;
-        }
-      );
-    else
-      $('#new-question').hide();
-
-    questionsDataTable = await loadQuestions();
+$(document).ready( 	
+  async () => {   
+  	if(token == null){
+  		$("#link-question-insert").hide();
+  		$("#link-question-update").hide();
+  		
+  		$("#link-teacher-insert").hide();
+  		$("#link-teacher-update").hide();
+  		
+  		$("#link-student-insert").hide();
+  		$("#link-student-update").hide();
+  		
+  		$("#link-classroom-insert").hide();
+  		$("#link-classroom-update").hide();
+  	} 
+	switch(window.location.pathname) {
+	  case "/question-insert.html":
+	    questionsDataTable = await newQuestion(token);
+	    break;
+	  case "/question-update.html":
+	    // code block
+	    break;
+	  case "/question-list.html":
+	    questionsDataTable = await loadQuestions();
+	    break;
+	  default:
+	    // code block
+	}  
   }
 );
