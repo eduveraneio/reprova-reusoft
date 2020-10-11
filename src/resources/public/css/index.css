@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-	padding: 24pt;
+  padding: 0;
   text-align: center;
 }
 
@@ -16,10 +16,8 @@ h2 {
 	margin-top: 0;
 }
 
-
-.questions-table, .questions-header, .questions-cell {
-  border: 1px solid #ddd;
-  text-align: left;
+div.separator{
+	padding: 12pt;
 }
 
 .questions-table {

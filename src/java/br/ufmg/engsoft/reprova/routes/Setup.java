@@ -28,7 +28,7 @@ public class Setup {
   /**
    * The port for the webserver.
    */
-  protected static final int port = Integer.parseInt(System.getenv("PORT"));
+  protected static final int port = 8080;
 
 
   /**
