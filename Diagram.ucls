@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json.SemesterDeserializer" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="95" width="362" x="464" y="723"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="br.ufmg.engsoft.reprova.Reprova" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/Reprova.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="95" width="114" x="-27" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="br.ufmg.engsoft.reprova.database.Mongo" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/database/Mongo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="149" width="269" x="127" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="br.ufmg.engsoft.reprova.routes.Setup" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/routes/Setup.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="131" width="189" x="436" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="br.ufmg.engsoft.reprova.database.QuestionsDAO" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/database/QuestionsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="203" width="223" x="421" y="201"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="br.ufmg.engsoft.reprova.routes.api.Questions" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/routes/api/Questions.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="293" width="250" x="665" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json.QuestionBuilderDeserializer" 
+    project="reprova" file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="95" width="348" x="866" y="723"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="br.ufmg.engsoft.reprova.model.Question" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/model/Question.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="239" width="413" x="955" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="br.ufmg.engsoft.reprova.model.Question.Builder" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/model/Question.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="311" width="272" x="955" y="201"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="131" width="156" x="665" y="552"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="11" language="java" name="br.ufmg.engsoft.reprova.model.Semester.Reference" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/model/Semester.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="167" width="199" x="1408" y="201"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="12" language="java" name="br.ufmg.engsoft.reprova.model.Semester" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/model/Semester.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="149" width="146" x="1408" y="-132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="br.ufmg.engsoft.reprova.tests.mime.json.JsonTest" project="reprova" 
+    file="/reprova/src/tests/br/ufmg/engsoft/reprova/tests/mime/json/JsonTest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="95" width="180" x="-10" y="141"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="br.ufmg.engsoft.reprova.tests.model.QuestionTest" project="reprova" 
+    file="/reprova/src/tests/br/ufmg/engsoft/reprova/tests/model/QuestionTest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="149" width="162" x="13" y="323"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="15">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="16" name="ref"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <bendpoint x="674" y="201"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="19" name="json"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="21">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <nesting id="22">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <nesting id="23">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <nesting id="24">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <association id="25">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="26" name="json"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="29" name="questionsDAO"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
