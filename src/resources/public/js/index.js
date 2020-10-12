@@ -207,7 +207,7 @@ async function loadQuestions() {
   let table = questionsTable(response);
   table.id = 'questions';
 
-  $('#root').append(table);
+  $('#question').append(table);
 
   return $('#questions').DataTable(
     {
@@ -234,10 +234,11 @@ const url = new URL(window.location.href);
 const token = url.searchParams.get("token");
 
 let questionsDataTable;
+let personsDataTable;
 
 $(document).ready( 	
   async () => {   
-  	if(token == null){
+  	/*if(token == null){
   		$("#link-question-insert").hide();
   		$("#link-question-update").hide();
   		
@@ -249,7 +250,7 @@ $(document).ready(
   		
   		$("#link-classroom-insert").hide();
   		$("#link-classroom-update").hide();
-  	} 
+  	}*/
 	switch(window.location.pathname) {
 	  case "/question-insert.html":
 	    questionsDataTable = await newQuestion(token);
@@ -259,6 +260,9 @@ $(document).ready(
 	    break;
 	  case "/question-list.html":
 	    questionsDataTable = await loadQuestions();
+	    break;
+	  case "/teacher-list.html":
+	    personsDataTable = await loadPersons("teacher");
 	    break;
 	  default:
 	    // code block
