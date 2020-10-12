@@ -12,17 +12,21 @@ public class Person {
    */
   public final String id;
   /**
-   * The theme of the person. Mustn't be null nor empty.
+   * The name of the person. Mustn't be null nor empty.
    */
   public final String name;
   /**
-   * The description of the person. Mustn't be null nor empty.
+   * The email of the person. Mustn't be null nor empty.
    */
   public final String email;
   /**
-   * The statement of the person. May be null or empty.
+   * The password of the person. May be null or empty.
    */
   public final String password;
+  /**
+   * The type of the person. Mustn't be null nor empty.
+   */
+  public final Integer type;
 
 
   /**
@@ -33,6 +37,7 @@ public class Person {
     protected String name;
     protected String email;
     protected String password;
+    protected Integer type;
 
     public Builder id(String id) {
       this.id = id;
@@ -51,6 +56,11 @@ public class Person {
 
     public Builder password(String password) {
       this.password = password;
+      return this;
+    }
+    
+    public Builder type(Integer type) {
+      this.type = type;
       return this;
     }
 
@@ -76,12 +86,16 @@ public class Person {
 
       if (password.isEmpty())
         throw new IllegalArgumentException("password mustn't be empty");
+      
+      if (type == null)
+        throw new IllegalArgumentException("type mustn't be null");
 
       return new Person(
         this.id,
         this.name,
         this.email,
-        this.password
+        this.password,
+        this.type
       );
     }
   }
@@ -93,12 +107,14 @@ public class Person {
     String id,
     String name,
     String email,
-    String password
+    String password,
+    Integer type
   ) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
+    this.type = type;
   }
 
   /**
@@ -118,7 +134,8 @@ public class Person {
     return this.id.equals(person.id)
         && this.name.equals(person.name)
         && this.email.equals(person.email)
-        && this.password.equals(person.password);
+        && this.password.equals(person.password)
+        && this.type.equals(person.type);
   }
 
 
@@ -128,7 +145,8 @@ public class Person {
       this.id,
       this.name,
       this.email,
-      this.password
+      this.password,
+      this.type
     );
   }
 
@@ -145,6 +163,7 @@ public class Person {
     builder.append("  name: " + this.name + "\n");
     builder.append("  email: " + this.email + "\n");
     builder.append("  password: " + this.password + "\n");
+    builder.append("  type: " + this.type + "\n");
 
     return builder.toString();
   }
