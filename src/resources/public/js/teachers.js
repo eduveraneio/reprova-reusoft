@@ -50,7 +50,7 @@ function table_build_section(rows, container_elem, row_elem, cell_elem) {
 function personsTable(data) {
   const headers = [
     [ { text: 'Teachers', colSpan: '5' } ],
-    [ 'Name', 'Email' ]
+    [ 'Name', 'Email', 'Actions' ]
   ];
   const rows = data.map(
     q => {
@@ -58,11 +58,38 @@ function personsTable(data) {
       let name = document.createElement('div');
       name.className = 'name';
       name.appendChild(document.createTextNode(q.name));
+	
+	  let actions = document.createElement('div');
+	  
+	  if (token) {
+        let remove = document.createElement('button');
+        remove.appendChild(document.createTextNode('Remove'));
+        remove.type = 'button';
+        remove.onclick = () => {
+          if (confirm('Remove teacher?'))
+            removePerson(q.id);
+        };
+        actions.appendChild(remove);
 
+        let edit = document.createElement('button');
+        edit.appendChild(document.createTextNode('Edit'));
+        edit.type = 'button';
+        edit.onclick = () => editPerson(q.id);
+        actions.appendChild(edit);
+
+        return [
+          { elem: name },
+          q.email,
+          { elem: actions }
+        ];
+      }
+      else {
 	    return [
 	      { elem: name },
-	      q.email
+	      q.email,
+	      { elem: actions }
 	    ];
+	  }
     }
   );
 
@@ -89,11 +116,30 @@ function personsTable(data) {
   return table;
 }
 
+async function removePerson(id) {
+  const request = await fetch(
+    '/api/persons?token=' + token + '&id=' + id,
+    { method: 'delete' }
+  );
+
+  if (request.ok)
+    refresh();
+  else
+    alert('Failed to delete teacher!');
+}
+
+function editPerson(id) {
+  let location = '/teacher.html?id=' + id;
+
+  if (token)
+    location += '&token=' + token;
+
+  window.location = location;
+};
+
 async function loadPersons() {
   const request = await fetch('/api/persons?type=1&token=' + token);
   const response = await request.json();
-
-console.log(response);
 
   let table = personsTable(response);
   table.id = 'persons';
@@ -110,6 +156,14 @@ console.log(response);
       ],
     }
   );
+}
+
+async function refresh() {
+  personsDataTable.destroy(); // remove datatable.
+
+  $('#persons').remove(); // remove table.
+
+  personsDataTable = await loadPersons(); // rebuild table.
 }
 
 const url = new URL(window.location.href);

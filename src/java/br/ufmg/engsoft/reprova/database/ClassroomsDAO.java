@@ -18,7 +18,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonClassroom;
 import br.ufmg.engsoft.reprova.model.Classroom;
 
 /**
@@ -33,7 +33,7 @@ public class ClassroomsDAO {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonClassroom json;
 
   /**
    * Classroom collection.
@@ -46,7 +46,7 @@ public class ClassroomsDAO {
    * @param json  the json formatter for the database's documents, mustn't be null
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public ClassroomsDAO(Mongo db, Json json) {
+  public ClassroomsDAO(Mongo db, JsonClassroom json) {
     if (db == null)
       throw new IllegalArgumentException("db mustn't be null");
 

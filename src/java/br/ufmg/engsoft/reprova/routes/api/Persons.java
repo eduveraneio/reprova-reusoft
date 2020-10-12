@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.database.PersonsDAO;
 import br.ufmg.engsoft.reprova.model.Person;
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonPerson;
 
 /**
  * Persons route.
@@ -35,7 +35,7 @@ public class Persons {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonPerson json;
   /**
    * DAO for Person.
    */
@@ -48,7 +48,7 @@ public class Persons {
    * @param personsDAO  the DAO for Person
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public Persons(Json json, PersonsDAO personsDAO) {
+  public Persons(JsonPerson json, PersonsDAO personsDAO) {
     if (json == null)
       throw new IllegalArgumentException("json mustn't be null");
 

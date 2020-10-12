@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Projections.exclude;
 import static com.mongodb.client.model.Projections.fields;
 
 import org.bson.Document;
@@ -18,7 +17,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonPerson;
 import br.ufmg.engsoft.reprova.model.Person;
 
 /**
@@ -33,7 +32,7 @@ public class PersonsDAO {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonPerson json;
 
   /**
    * Persons collection.
@@ -46,7 +45,7 @@ public class PersonsDAO {
    * @param json  the json formatter for the database's documents, mustn't be null
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public PersonsDAO(Mongo db, Json json) {
+  public PersonsDAO(Mongo db, JsonPerson json) {
     if (db == null)
       throw new IllegalArgumentException("db mustn't be null");
 
@@ -69,7 +68,7 @@ public class PersonsDAO {
       throw new IllegalArgumentException("document mustn't be null");
 
     var doc = document.toJson();
-
+  
     logger.info("Fetched person: " + doc);
 
     try {
@@ -78,8 +77,9 @@ public class PersonsDAO {
         .build();
 
       logger.info("Parsed person: " + person);
-
+      
       return person;
+     
     }
     catch (Exception e) {
       logger.error("Invalid document in database!", e);

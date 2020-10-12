@@ -6,7 +6,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonQuestion;
 import br.ufmg.engsoft.reprova.model.Question;
 import br.ufmg.engsoft.reprova.model.Semester;
 
@@ -35,7 +35,7 @@ public class JsonTest {
       .pvt(false)
       .build();
 
-    var formatter = new Json();
+    var formatter = new JsonQuestion();
 
     var json = formatter.render(question);
 

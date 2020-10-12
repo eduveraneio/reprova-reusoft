@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.database.ClassroomsDAO;
 import br.ufmg.engsoft.reprova.model.Classroom;
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonClassroom;
 
 /**
  * Classrooms route.
@@ -35,7 +35,7 @@ public class Classrooms {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonClassroom json;
   /**
    * DAO for Classroom.
    */
@@ -48,7 +48,7 @@ public class Classrooms {
    * @param classroomsDAO  the DAO for Classroom
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public Classrooms(Json json, ClassroomsDAO classroomsDAO) {
+  public Classrooms(JsonClassroom json, ClassroomsDAO classroomsDAO) {
     if (json == null)
       throw new IllegalArgumentException("json mustn't be null");
 

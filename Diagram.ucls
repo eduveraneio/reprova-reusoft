@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json.SemesterDeserializer" project="reprova" 
-    file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="br.ufmg.engsoft.reprova.mime.json.JsonQuestion.SemesterDeserializer" 
+    project="reprova" file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/JsonQuestion.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="95" width="362" x="464" y="723"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json.QuestionBuilderDeserializer" 
-    project="reprova" file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" 
+  <class id="7" language="java" name="br.ufmg.engsoft.reprova.mime.json.JsonQuestion.QuestionBuilderDeserializer" 
+    project="reprova" file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/JsonQuestion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="95" width="348" x="866" y="723"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -83,8 +84,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="br.ufmg.engsoft.reprova.mime.json.Json" project="reprova" 
-    file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/Json.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="br.ufmg.engsoft.reprova.mime.json.JsonQuestion" project="reprova" 
+    file="/reprova/src/java/br/ufmg/engsoft/reprova/mime/json/JsonQuestion.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="131" width="156" x="665" y="552"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -128,55 +129,71 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="15">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="16" name="ref"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="18">    
-    <bendpoint x="674" y="201"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="19" name="json"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="21">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </nesting>  
-  <nesting id="22">    
+  <nesting id="15">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="7"/>  
   </nesting>  
-  <nesting id="23">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
-  </nesting>  
-  <nesting id="24">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="11"/>  
-  </nesting>  
-  <association id="25">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="26" name="json"/>      
-      <multiplicity id="27" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="28">    
+  <association id="16">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="29" name="questionsDAO"/>      
-      <multiplicity id="30" minimum="0" maximum="1"/>    
+      <attribute id="17" name="questionsDAO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="19">    
+    <bendpoint x="674" y="201"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="20" name="json">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="23" name="ref">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="25">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <association id="26">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="27" name="json">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="29">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <nesting id="30">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

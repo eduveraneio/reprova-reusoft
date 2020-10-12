@@ -19,7 +19,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonQuestion;
 import br.ufmg.engsoft.reprova.model.Question;
 
 
@@ -35,7 +35,7 @@ public class QuestionsDAO {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonQuestion json;
 
   /**
    * Questions collection.
@@ -50,7 +50,7 @@ public class QuestionsDAO {
    * @param json  the json formatter for the database's documents, mustn't be null
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public QuestionsDAO(Mongo db, Json json) {
+  public QuestionsDAO(Mongo db, JsonQuestion json) {
     if (db == null)
       throw new IllegalArgumentException("db mustn't be null");
 

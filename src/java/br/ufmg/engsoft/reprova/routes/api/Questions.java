@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.database.QuestionsDAO;
 import br.ufmg.engsoft.reprova.model.Question;
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.mime.json.JsonQuestion;
 
 
 /**
@@ -37,7 +37,7 @@ public class Questions {
   /**
    * Json formatter.
    */
-  protected final Json json;
+  protected final JsonQuestion json;
   /**
    * DAO for Question.
    */
@@ -52,7 +52,7 @@ public class Questions {
    * @param questionsDAO  the DAO for Question
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public Questions(Json json, QuestionsDAO questionsDAO) {
+  public Questions(JsonQuestion json, QuestionsDAO questionsDAO) {
     if (json == null)
       throw new IllegalArgumentException("json mustn't be null");
 
