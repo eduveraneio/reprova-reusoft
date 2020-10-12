@@ -1,123 +1,110 @@
-function mean(arr) {
-  if (arr.length == 0)
-    return 0;
-
-  let sum = arr.reduce((a, b) => a + b);
-
-  return sum / arr.length;
+function textboxEmpty(tbox) {
+  let val = tbox.val();
+  return val == '' || val == tbox.prop('name');
 }
 
+async function load() {
+  const request = await fetch(
+    '/api/persons?token=' + token + '&id=' + id
+  );
+  const person = await request.json();
 
-function table_build_section(rows, container_elem, row_elem, cell_elem) {
-  function str_or_obj(x) {
-    x = typeof x === 'string' ? { name: x } : x;
+  $('#name').val(person.name);
+  $('#email').val(person.email);
+  $('#type').val(person.type);
+  $('#regNumber').val(person.regNumber);
+  $('#password').val(person.password);
 
-    x.className = x.className || '';
+  return person;
+}
 
-    return x;
-  };
+async function save() {
+  const name = $('#name');
+  const email = $('#email');
+  const regNumber = $('#regNumber');
+  const password = $('#password');
 
-  container_elem = str_or_obj(container_elem);
-  row_elem = str_or_obj(row_elem);
-  cell_elem = str_or_obj(cell_elem);
-
-  let container = document.createElement(container_elem.name);
-  container.className = container_elem.className;
-
-  for (row of rows) {
-    let row_container = document.createElement(row_elem.name);
-    row_container.className = row_elem.className;
-
-    for (cell of row) {
-      let cell_container = document.createElement(cell_elem.name);
-      cell_container.className = cell_elem.className;
-      cell_container.colSpan = cell.colSpan || '1';
-
-      if (cell.elem)
-        cell_container.appendChild(cell.elem);
-      else
-        cell_container.appendChild(document.createTextNode(cell.text || cell));
-
-      row_container.appendChild(cell_container);
-    }
-
-    container.appendChild(row_container);
+  if (textboxEmpty(name)) {
+    alert('Please fill in the name!');
+    name.focus();
+    return;
   }
 
-  return container;
-}
+  if (textboxEmpty(regNumber)) {
+    alert('Please fill in the registry number!');
+    regNumber.focus();
+    return;
+  }
+  
+  if (textboxEmpty(email)) {
+    alert('Please fill in the email!');
+    email.focus();
+    return;
+  }
+  
+  if (textboxEmpty(password)) {
+    alert('Please fill in the password!');
+    password.focus();
+    return;
+  }
 
-function studentsTable(data) {
-  const headers = [
-    [ { text: 'Students', colSpan: '5' } ],
-    [ 'Name', 'Email', 'Registry' ]
-  ];
-  const rows = data.map(
-    q => {
-      // wordwrap works better if the element is enclosed by a div.
-      let name = document.createElement('div');
-      name.className = 'name';
-      name.appendChild(document.createTextNode(q.name));
+  person = {
+    'name': name.val(),
+    'email': email.val(),
+    'regNumber': regNumber.val(),
+    'password': password.val(),
+    'type': '2'
+  };
 
-	    return [
-	      { elem: name },
-	      q.email,
-	      ""
-	    ];
-    }
-  );
+  if (id)
+    person['id'] = id;
 
-  let table = document.createElement('table');
-  table.className = 'questions-table';
-
-  table.appendChild(
-    table_build_section(
-      headers,
-      'thead',
-      'tr',
-      { name: 'th', className: 'questions-header' }
-    )
-  );
-  table.appendChild(
-    table_build_section(
-      rows,
-      'tbody',
-      'tr',
-      { name: 'td', className: 'questions-cell' }
-    )
-  );
-
-  return table;
-}
-
-async function loadStudents() {
-  const request = await fetch('/api/persons?type=2&token=' + token);
-  const response = await request.json();
-
-  let table = studentsTable(response);
-  table.id = 'students';
-
-  $('#student').append(table);
-
-  return $('#students').DataTable(
+  const request = await fetch(
+    '/api/persons?token=' + token,
     {
-      'columnDefs': [
-        {
-          'max-width': '35%',
-          'targets': 0
-        }
-      ],
+      method: 'post',
+      body: JSON.stringify(person)
     }
   );
+  
+  if (request.ok) {
+    alert('Success to upload student!');
+    window.location = token ? '/students.html?token=' + token
+                            : '/students.html';
+  }
+  else
+    alert('Failed to upload student!');
 }
+
 
 const url = new URL(window.location.href);
 const token = url.searchParams.get("token");
+const id = url.searchParams.get("id");
 
-let studentsDataTable;
+let person = {
+  record: {}
+};
 
-$(document).ready( 	
-  async () => {   
-  	studentsDataTable = await loadStudents();  
+$(document).ready(
+  async() => {
+    const inputs = $('input[type=text],input[type=password]');
+
+    inputs.focus(
+      function() {
+          $(this).val('');
+      }
+    );
+
+    inputs.blur(
+      function() {
+        if ($(this).val() == '')
+          $(this).val($(this).prop('name'));
+      }
+    );
+
+    $('#save').click(save);
+
+    if (id)
+      person = await load(id);
   }
 );

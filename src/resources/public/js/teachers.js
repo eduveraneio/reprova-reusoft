@@ -50,7 +50,8 @@ function table_build_section(rows, container_elem, row_elem, cell_elem) {
 function personsTable(data) {
   const headers = [
     [ { text: 'Teachers', colSpan: '3' } ],
-    [ 'Name', 'Email', 'Actions' ]
+    token ? [ 'Name', 'Email', 'Actions' ]
+          : [ 'Name', 'Email' ]
   ];
   const rows = data.map(
     q => {
@@ -86,8 +87,7 @@ function personsTable(data) {
       else {
 	    return [
 	      { elem: name },
-	      q.email,
-	      { elem: actions }
+	      q.email
 	    ];
 	  }
     }

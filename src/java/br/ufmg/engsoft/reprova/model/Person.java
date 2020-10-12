@@ -79,9 +79,6 @@ public class Person {
      * @throws IllegalArgumentException  if any parameter is invalid
      */
     public Person build() {
-      if (id == null)
-          throw new IllegalArgumentException("id mustn't be null");
-
       if (name == null)
         throw new IllegalArgumentException("name mustn't be null");
 

@@ -49,8 +49,9 @@ function table_build_section(rows, container_elem, row_elem, cell_elem) {
 
 function personsTable(data) {
   const headers = [
-    [ { text: 'Students', colSpan: '4' } ],
-    [ 'Name', 'Email', 'Registry', 'Actions' ]
+    [ { text: 'Students', colSpan: '5' } ],
+	token ? [ 'Name', 'Email', 'Registry', 'Actions' ]
+          : [ 'Name', 'Email', 'Registry']
   ];
   const rows = data.map(
     q => {
@@ -66,7 +67,7 @@ function personsTable(data) {
         remove.appendChild(document.createTextNode('Remove'));
         remove.type = 'button';
         remove.onclick = () => {
-          if (confirm('Remove teacher?'))
+          if (confirm('Remove student?'))
             removePerson(q.id);
         };
         actions.appendChild(remove);
@@ -88,8 +89,7 @@ function personsTable(data) {
 	    return [
 	      { elem: name },
 	      q.email,
-	      q.regNumber,
-	      { elem: actions }
+	      q.regNumber
 	    ];
 	  }
     }
@@ -127,7 +127,7 @@ async function removePerson(id) {
   if (request.ok)
     refresh();
   else
-    alert('Failed to delete teacher!');
+    alert('Failed to delete student!');
 }
 
 function editPerson(id) {
