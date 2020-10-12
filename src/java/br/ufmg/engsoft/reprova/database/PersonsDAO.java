@@ -117,12 +117,13 @@ public class PersonsDAO {
    *         empty.
    * @throws IllegalArgumentException  if there is an invalid Person
    */
-  public Collection<Person> list(String name, String email, String type) {
+  public Collection<Person> list(String name, String email, String type, String regNumber) {
     var filters =
       Arrays.asList(
         name == null ? null : eq("name", name),
         email == null ? null : eq("email", email),
-        type == null ? null : eq("type", type)
+        type == null ? null : eq("type", type),
+        regNumber == null ? null : eq("regNumber", regNumber)
       )
       .stream()
       .filter(Objects::nonNull) // mongo won't allow null filters.
@@ -156,7 +157,8 @@ public class PersonsDAO {
       .append("name", person.name)
       .append("email", person.email)
       .append("password", person.password)
-      .append("type", person.type);
+      .append("type", person.type)
+      .append("regNumber", person.regNumber);
 
     var id = person.id;
     if (id != null) {

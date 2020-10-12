@@ -142,7 +142,7 @@ public class Persons {
 
     logger.info("Fetching persons.");
     
-    var persons = personsDAO.list(null, null, type);
+    var persons = personsDAO.list(null, null, type, null);
 
     logger.info("Done. Responding...");
 

@@ -27,6 +27,10 @@ public class Person {
    * The type of the person. Mustn't be null nor empty.
    */
   public final String type;
+  /**
+   * The registry of the person. Mustn't be null nor empty.
+   */
+  public final String regNumber;
 
 
   /**
@@ -38,6 +42,7 @@ public class Person {
     protected String email;
     protected String password;
     protected String type;
+    protected String regNumber;
 
     public Builder id(String id) {
       this.id = id;
@@ -63,6 +68,11 @@ public class Person {
       this.type = type;
       return this;
     }
+    
+    public Builder regNumber(String regNumber) {
+	  this.regNumber = regNumber;
+	  return this;
+	}
 
     /**
      * Build the person.
@@ -98,7 +108,8 @@ public class Person {
         this.name,
         this.email,
         this.password,
-        this.type
+        this.type,
+        this.regNumber
       );
     }
   }
@@ -111,13 +122,15 @@ public class Person {
     String name,
     String email,
     String password,
-    String type
+    String type,
+    String regNumber
   ) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
     this.type = type;
+    this.regNumber = regNumber;
   }
 
   /**
@@ -138,7 +151,8 @@ public class Person {
         && this.name.equals(person.name)
         && this.email.equals(person.email)
         && this.password.equals(person.password)
-        && this.type.equals(person.type);
+        && this.type.equals(person.type)
+        && this.regNumber.equals(person.regNumber);
   }
 
 
@@ -149,7 +163,8 @@ public class Person {
       this.name,
       this.email,
       this.password,
-      this.type
+      this.type,
+      this.regNumber
     );
   }
 
@@ -167,6 +182,8 @@ public class Person {
     builder.append("  email: " + this.email + "\n");
     builder.append("  password: " + this.password + "\n");
     builder.append("  type: " + this.type + "\n");
+    builder.append("  regNumber: " + this.regNumber + "\n");
+    
 
     return builder.toString();
   }

@@ -49,8 +49,8 @@ function table_build_section(rows, container_elem, row_elem, cell_elem) {
 
 function personsTable(data) {
   const headers = [
-    [ { text: 'Teachers', colSpan: '3' } ],
-    [ 'Name', 'Email', 'Actions' ]
+    [ { text: 'Students', colSpan: '4' } ],
+    [ 'Name', 'Email', 'Registry', 'Actions' ]
   ];
   const rows = data.map(
     q => {
@@ -80,6 +80,7 @@ function personsTable(data) {
         return [
           { elem: name },
           q.email,
+          q.regNumber,
           { elem: actions }
         ];
       }
@@ -87,6 +88,7 @@ function personsTable(data) {
 	    return [
 	      { elem: name },
 	      q.email,
+	      q.regNumber,
 	      { elem: actions }
 	    ];
 	  }
@@ -129,7 +131,7 @@ async function removePerson(id) {
 }
 
 function editPerson(id) {
-  let location = '/teacher.html?id=' + id;
+  let location = '/student.html?id=' + id;
 
   if (token)
     location += '&token=' + token;
@@ -138,7 +140,7 @@ function editPerson(id) {
 };
 
 async function loadPersons() {
-  const request = await fetch('/api/persons?type=1&token=' + token);
+  const request = await fetch('/api/persons?type=2&token=' + token);
   const response = await request.json();
 
   let table = personsTable(response);
@@ -175,9 +177,9 @@ $(document).ready(
   async () => {
   
   	if (token)
-      $('#new-teacher').click(
+      $('#new-student').click(
         () => {
-          let location = '/teacher.html';
+          let location = '/student.html';
 
           if (token)
             location += '?token=' + token;
@@ -186,7 +188,7 @@ $(document).ready(
         }
       );
     else
-      $('#new-teacher').hide();
+      $('#new-student').hide();
   	
   	personsDataTable = await loadPersons();  
   }
