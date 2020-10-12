@@ -1,0 +1,37 @@
+body {
+  background-color: #F3F3F3;
+}
+
+.container {
+  padding: 0;
+  text-align: center;
+}
+
+.separator{
+	padding: 12pt;
+}
+
+.title{
+	font-weight: bold;
+	padding: 12pt 12pt 12pt 0pt;
+}
+
+input {
+  margin: 5px 0;
+}
+
+select {
+  overflow-y: auto;
+}
+
+.toolbutton {
+  width: 25px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.short {
+  width: 50px;
+}
+.buttons input {
+  margin: 5px 2px;
+}
