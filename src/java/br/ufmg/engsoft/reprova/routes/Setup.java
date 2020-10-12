@@ -5,10 +5,12 @@ import spark.Spark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.ufmg.engsoft.reprova.database.Mongo;
 import br.ufmg.engsoft.reprova.database.QuestionsDAO;
-import br.ufmg.engsoft.reprova.routes.api.Questions;
+import br.ufmg.engsoft.reprova.database.PersonsDAO;
 import br.ufmg.engsoft.reprova.mime.json.Json;
-
+import br.ufmg.engsoft.reprova.routes.api.Questions;
+import br.ufmg.engsoft.reprova.routes.api.Persons;
 
 /**
  * Service setup class.
@@ -18,7 +20,7 @@ public class Setup {
   /**
    * Static class.
    */
-  protected Setup() { }
+  protected Setup() {  }
 
   /**
    * Logger instance.
@@ -36,26 +38,35 @@ public class Setup {
    * This sets up the routes under the routes directory,
    * and also static files on '/public'.
    * @param json          the json formatter
-   * @param questionsDAO  the DAO for Question
+   * @param personDAO  the DAO for Person
    * @throws IllegalArgumentException  if any parameter is null
    */
-  public static void routes(Json json, QuestionsDAO questionsDAO) {
-    if (json == null)
-      throw new IllegalArgumentException("json mustn't be null");
-
-    if (questionsDAO == null)
-      throw new IllegalArgumentException("questionsDAO mustn't be null");
-
-
+  public static void routes(Mongo db) {
     Spark.port(Setup.port);
 
     logger.info("Spark on port " + Setup.port);
-
+    
     logger.info("Setting up static resources.");
     Spark.staticFiles.location("/public");
+    
+    questionRoute(db);
+    personRoute(db);
+    
+  }
 
-    logger.info("Setting up questions route:");
-    var questions = new Questions(json, questionsDAO);
+  private static void personRoute(Mongo db) {
+	logger.info("Setting up persons route:");
+    var personsJson = new Json();
+    var personsDAO  = new PersonsDAO(db, personsJson);
+    var persons = new Persons(personsJson, personsDAO);
+    persons.setup();
+  }
+
+  private static void questionRoute(Mongo db) {
+	logger.info("Setting up questions route:");
+    var questionsJson = new Json();
+    var questionsDAO  = new QuestionsDAO(db, questionsJson);
+    var questions = new Questions(questionsJson, questionsDAO);
     questions.setup();
   }
 }

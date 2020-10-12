@@ -3,7 +3,6 @@ package br.ufmg.engsoft.reprova.database;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -137,6 +136,65 @@ public class PersonsDAO {
     doc.projection(fields(exclude("statement")))
       .map(this::parseDoc)
       .into(result);
+
+    return result;
+  }
+  
+  /**
+   * Adds or updates the given person in the database.
+   * If the given person has an id, update, otherwise add.
+   * @param question  the person to be stored
+   * @return Whether the person was successfully added.
+   * @throws IllegalArgumentException  if any parameter is null
+   */
+  public boolean add(Person person) {
+    if (person == null)
+      throw new IllegalArgumentException("person mustn't be null");
+
+    Document doc = new Document()
+      .append("name", person.name)
+      .append("email", person.email)
+      .append("password", person.password);
+
+    var id = person.id;
+    if (id != null) {
+      var result = this.collection.replaceOne(
+        eq(new ObjectId(id)),
+        doc
+      );
+
+      if (!result.wasAcknowledged()) {
+        logger.warn("Failed to replace person " + id);
+        return false;
+      }
+    }
+    else
+      this.collection.insertOne(doc);
+
+    logger.info("Stored person " + doc.get("_id"));
+
+    return true;
+  }
+
+
+  /**
+   * Remove the person with the given id from the collection.
+   * @param id  the person id
+   * @return Whether the given person was removed.
+   * @throws IllegalArgumentException  if any parameter is null
+   */
+  public boolean remove(String id) {
+    if (id == null)
+      throw new IllegalArgumentException("id mustn't be null");
+
+    var result = this.collection.deleteOne(
+      eq(new ObjectId(id))
+    ).wasAcknowledged();
+
+    if (result)
+      logger.info("Deleted person " + id);
+    else
+      logger.warn("Failed to delete person " + id);
 
     return result;
   }
