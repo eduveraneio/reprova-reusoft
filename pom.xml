@@ -67,30 +67,26 @@
 
 		<plugins>
 		
-		  <plugin>
-	        <groupId>com.heroku.sdk</groupId>
-	        <artifactId>heroku-maven-plugin</artifactId>
-	        <version>3.0.3</version>
-	      </plugin>
-		
-		   <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-            </configuration>
-           </plugin>
-           
-           
-	      <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.22.1</version>
-	      </plugin>
+		    <plugin>
+		      <groupId>com.heroku.sdk</groupId>
+		      <artifactId>heroku-maven-plugin</artifactId>
+		      <version>3.0.4</version>
+		      <configuration>
+			<appName>${heroku.appName}</appName>
+		      </configuration>
+		    </plugin>
 
-		   <plugin>
+		      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.0</version>
+			<configuration>
+			  <release>11</release>
+			  <compilerArgument>-Xlint:unchecked</compilerArgument>
+			</configuration>
+		      </plugin>
+
+		      <plugin>
 			<artifactId>maven-assembly-plugin</artifactId>
 			<configuration>
 			  <archive>
@@ -104,9 +100,16 @@
 			  <finalName>reprova</finalName>
 			  <appendAssemblyId>false</appendAssemblyId>
 			</configuration>
-		   </plugin>
+		      </plugin>
 
-	    </plugins>
+		      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.22.1</version>
+		      </plugin>
+
+        
+		</plugins>
 
 	</build>
 
