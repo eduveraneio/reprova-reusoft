@@ -5,12 +5,14 @@ import spark.Spark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.ufmg.engsoft.reprova.mime.json.Json;
 import br.ufmg.engsoft.reprova.database.Mongo;
 import br.ufmg.engsoft.reprova.database.QuestionsDAO;
 import br.ufmg.engsoft.reprova.database.PersonsDAO;
-import br.ufmg.engsoft.reprova.mime.json.Json;
+import br.ufmg.engsoft.reprova.database.ClassroomsDAO;
 import br.ufmg.engsoft.reprova.routes.api.Questions;
 import br.ufmg.engsoft.reprova.routes.api.Persons;
+import br.ufmg.engsoft.reprova.routes.api.Classrooms;
 
 /**
  * Service setup class.
@@ -51,15 +53,7 @@ public class Setup {
     
     questionRoute(db);
     personRoute(db);
-    
-  }
-
-  private static void personRoute(Mongo db) {
-	logger.info("Setting up persons route:");
-    var personsJson = new Json();
-    var personsDAO  = new PersonsDAO(db, personsJson);
-    var persons = new Persons(personsJson, personsDAO);
-    persons.setup();
+    classroomRoute(db);
   }
 
   private static void questionRoute(Mongo db) {
@@ -68,5 +62,21 @@ public class Setup {
     var questionsDAO  = new QuestionsDAO(db, questionsJson);
     var questions = new Questions(questionsJson, questionsDAO);
     questions.setup();
+  }
+  
+  private static void personRoute(Mongo db) {
+	logger.info("Setting up persons route:");
+    var personsJson = new Json();
+    var personsDAO  = new PersonsDAO(db, personsJson);
+    var persons = new Persons(personsJson, personsDAO);
+    persons.setup();
+  }
+  
+  private static void classroomRoute(Mongo db) {
+	logger.info("Setting up classrooms route:");
+    var classroomsJson = new Json();
+    var classroomsDAO  = new ClassroomsDAO(db, classroomsJson);
+    var classrooms = new Classrooms(classroomsJson, classroomsDAO);
+    classrooms.setup();
   }
 }
