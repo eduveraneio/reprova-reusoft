@@ -1,242 +1,293 @@
-function mean(arr) {
-  if (arr.length == 0)
-    return 0;
-
-  let sum = arr.reduce((a, b) => a + b);
-
-  return sum / arr.length;
+function textboxEmpty(tbox) {
+  let val = tbox.val();
+  return val == '' || val == tbox.prop('name');
 }
 
+function saveRecord() {
+  let semester = $('#semesters option:selected').text();
 
-function table_build_section(rows, container_elem, row_elem, cell_elem) {
-  function str_or_obj(x) {
-    x = typeof x === 'string' ? { name: x } : x;
-
-    x.className = x.className || '';
-
-    return x;
-  };
-
-  container_elem = str_or_obj(container_elem);
-  row_elem = str_or_obj(row_elem);
-  cell_elem = str_or_obj(cell_elem);
-
-  let container = document.createElement(container_elem.name);
-  container.className = container_elem.className;
-
-  for (row of rows) {
-    let row_container = document.createElement(row_elem.name);
-    row_container.className = row_elem.className;
-
-    for (cell of row) {
-      let cell_container = document.createElement(cell_elem.name);
-      cell_container.className = cell_elem.className;
-      cell_container.colSpan = cell.colSpan || '1';
-
-      if (cell.elem)
-        cell_container.appendChild(cell.elem);
-      else
-        cell_container.appendChild(document.createTextNode(cell.text || cell));
-
-      row_container.appendChild(cell_container);
-    }
-
-    container.appendChild(row_container);
+  function getVal() {
+    return $(this).val();
   }
 
-  return container;
+  let classes = $("#semester input[type=text]")
+      .map(getVal)
+      .get();
+
+  let recs = $("#semester input[type=number]")
+      .map(getVal)
+      .get();
+
+  let repeated = false;
+
+  let record = classes.reduce(
+    (obj, c, i) => {
+      if (c in obj)
+        repeated = true;
+
+      return ({
+        ...obj,
+        [c]: Number(recs[i])
+      });
+    },
+    {}
+  );
+
+  if (repeated) {
+    alert('There are two classes with the same name!');
+    return;
+  }
+
+  question.record[semester] = record;
 }
 
-function questionsTable(data) {
-  const headers = [
-    [ { text: 'Questions', colSpan: '5' } ],
-    token ? [ 'Description', 'Theme', 'Record', 'Private', 'Actions' ]
-          : [ 'Description', 'Theme', 'Difficulty', 'Actions' ]
-  ];
-  const rows = data.map(
-    q => {
-      // wordwrap works better if the element is enclosed by a div.
-      let description = document.createElement('div');
-      description.className = 'description';
-      description.appendChild(document.createTextNode(q.description));
 
-      let actions = document.createElement('div');
+function selectRecord(record) {
+  let parent = $('#semester');
 
-      let download = document.createElement('button');
-      download.appendChild(document.createTextNode('Download'));
-      download.type = 'button';
-      download.onclick = () => downloadQuestion(q.id);
-      actions.appendChild(download);
+  function addRow(cls, value) {
+    let row = document.createElement('div');
 
-      if (token) {
-        let remove = document.createElement('button');
-        remove.appendChild(document.createTextNode('Remove'));
-        remove.type = 'button';
-        remove.onclick = () => {
-          if (confirm('Remove question?'))
-            removeQuestion(q.id);
-        };
-        actions.appendChild(remove);
+    let clsInput = document.createElement('input');
+    clsInput.type = 'text';
+    clsInput.name = 'Turma';
+    clsInput.value = cls;
+    clsInput.className = 'short';
+    clsInput.onfocus = function() {
+      if (this.value == this.name)
+        this.value = '';
+    };
+    clsInput.onblur = function() {
+      if (this.value == '')
+        this.value = this.name;
+    };
+    row.appendChild(clsInput);
 
-        let edit = document.createElement('button');
-        edit.appendChild(document.createTextNode('Edit'));
-        edit.type = 'button';
-        edit.onclick = () => editQuestion(q.id);
-        actions.appendChild(edit);
+    let valInput = document.createElement('input');
+    valInput.type = 'number';
+    valInput.min = 0;
+    valInput.max = 100;
+    valInput.value = value;
+    valInput.className = 'short';
+    row.appendChild(valInput);
 
-        let record = document.createElement('div');
-        for (semester in q.record) {
-          const grades = Object.entries(q.record[semester]);
+    let remove = document.createElement('input');
+    remove.type = 'button';
+    remove.value = '-';
+    remove.className = 'toolbutton';
+    remove.onclick = () => row.parentNode.removeChild(row);
+    row.appendChild(remove);
 
-          let table = document.createElement('table');
-          table.className = 'record-table';
+    parent.append(row);
+  }
 
-          table.appendChild(
-            table_build_section(
-              [[ { text: semester, colSpan: '2' } ]],
-              'thead',
-              'tr',
-              'th'
-            )
-          );
-          table.appendChild(
-            table_build_section(grades, 'tbody', 'tr', 'td')
-          );
+  parent.empty();
 
-          record.appendChild(table);
-        }
+  for (let [ cls, val ] of Object.entries(record))
+    addRow(cls, val);
 
-        return [
-          { elem: description },
-          q.theme,
-          { elem: record },
-          q.pvt,
-          { elem: actions }
-        ];
+  let buttons = document.createElement('div');
+  buttons.className = 'buttons';
+  parent.append(buttons);
+
+  let add = document.createElement('input');
+  add.type = 'button';
+  add.value = 'Add';
+  add.onclick = () => {
+    buttons.parentNode.removeChild(buttons);
+    addRow('Turma', '0');
+    parent.append(buttons);
+  };
+  buttons.appendChild(add);
+
+  let save = document.createElement('input');
+  save.type = 'button';
+  save.value = 'Save';
+  save.onclick = saveRecord;
+  buttons.appendChild(save);
+}
+
+function loadRecord(record) {
+  let select = $('#semesters');
+  select.empty();
+
+  for (let [ semester, rec ] of Object.entries(record)) {
+    let option = document.createElement('option');
+    option.appendChild(document.createTextNode(semester));
+
+    select.append(option);
+
+    select.change(
+      () => {
+        if (option.selected)
+          selectRecord(rec);
       }
-      else {
-        const record = mean(
-          Object
-            .values(q.record)
-            .flatMap(Object.values)
-        );
+    );
+  }
+}
 
-        const difficulty = record < 33.3 ? 'Hard'
-                         : record < 66.6 ? 'Medium'
-                         : 'Easy';
 
-        return [
-          { elem: description },
-          q.theme,
-          difficulty,
-          { elem: actions }
-        ];
-      }
+async function loadfile(inputFile) {
+  const filereader = new FileReader();
+
+  return new Promise(
+    (resolve, reject) => {
+      filereader.onerror = () => {
+        filereader.abort();
+        reject(new DOMException("Problem parsing input file."));
+      };
+
+      filereader.onload = () => resolve(filereader.result);
+
+      filereader.readAsDataURL(inputFile);
     }
   );
+};
 
 
-  let table = document.createElement('table');
-  table.className = 'questions-table';
-
-  table.appendChild(
-    table_build_section(
-      headers,
-      'thead',
-      'tr',
-      { name: 'th', className: 'questions-header' }
-    )
-  );
-  table.appendChild(
-    table_build_section(
-      rows,
-      'tbody',
-      'tr',
-      { name: 'td', className: 'questions-cell' }
-    )
-  );
-
-  return table;
-}
-
-
-async function downloadQuestion(id) {
+async function load() {
   const request = await fetch(
     '/api/questions?token=' + token + '&id=' + id
   );
   const question = await request.json();
 
-  const statement = question.statement;
-  const separator = statement.indexOf('/');
-  const filename  = statement.substring(0, separator);
-  const payload   = statement.substring(separator + 1);
+  $('#description').val(question.description);
+  $('#theme').val(question.theme);
+  loadRecord(question.record);
+  $('#pvt').prop('checked', question.pvt);
 
-  let download = document.createElement('a');
-  download.href = payload;
-  download.download = filename;
-  document.body.appendChild(download);
-  download.click();
-  download.remove();
+  return question;
 }
 
-async function removeQuestion(id) {
+
+async function save() {
+  const description = $('#description');
+  const theme = $('#theme');
+  const pvt = $('#pvt').prop('checked');
+
+  if (textboxEmpty(description)) {
+    alert('Please fill in the description!');
+    description.focus();
+    return;
+  }
+
+  if (textboxEmpty(theme)) {
+    alert('Please fill in the theme!');
+    theme.focus();
+    return;
+  }
+
+  const file = $('#statement').prop('files')[0];
+
+  if (!file && !question.statement) {
+    alert('Please choose a file!');
+    return;
+  }
+
+  const statement = file ? file.name + '/' + await loadfile(file)
+                         : question.statement;
+
+  question = {
+    'theme': theme.val(),
+    'description': description.val(),
+    'statement': statement,
+    'record': question.record,
+    'pvt': pvt,
+  };
+
+  if (id)
+    question['id'] = id;
+
   const request = await fetch(
-    '/api/questions?token=' + token + '&id=' + id,
-    { method: 'delete' }
-  );
-
-  if (request.ok)
-    refresh();
-  else
-    alert('Failed to delete question!');
-}
-
-function editQuestion(id) {
-  let location = '/question.html?id=' + id;
-
-  if (token)
-    location += '&token=' + token;
-
-  window.location = location;
-};
-
-async function loadQuestions() {
-  const request = await fetch('/api/questions?token=' + token);
-  const response = await request.json();
-
-  let table = questionsTable(response);
-  table.id = 'questions';
-
-  $('#question').append(table);
-
-  return $('#questions').DataTable(
+    '/api/questions?token=' + token,
     {
-      'columnDefs': [
-        {
-          'max-width': '35%',
-          'targets': 0
-        }
-      ],
+      method: 'post',
+      body: JSON.stringify(question)
     }
   );
-}
 
-async function refresh() {
-  questionsDataTable.destroy(); // remove datatable.
-
-  $('#questions').remove(); // remove table.
-
-  questionsDataTable = await loadQuestions(); // rebuild table.
+  if (request.ok) {
+    alert('Success to upload question!');
+    window.location = token ? '/questions.html?token=' + token
+                            : '/questions.html';
+  }
+  else
+    alert('Failed to upload question!');
 }
 
 
 const url = new URL(window.location.href);
 const token = url.searchParams.get("token");
+const id = url.searchParams.get("id");
 
-let questionsDataTable;
+let question = {
+  record: {}
+};
 
-$(document).ready( 	
-  async () => {   
-  	questionsDataTable = await loadQuestions();
+$(document).ready(
+  async() => {
+    const inputs = $('textarea,input[type=text]');
+
+    inputs.focus(
+      function() {
+        if ($(this).val() == $(this).prop('name'))
+          $(this).val('');
+      }
+    );
+
+    inputs.blur(
+      function() {
+        if ($(this).val() == '')
+          $(this).val($(this).prop('name'));
+      }
+    );
+
+
+    $('#add-semester').click(
+      () => {
+        let year = $('#year').val();
+
+        if (year < 0 || year > 3000) {
+          alert('Invalid year!');
+          return;
+        }
+
+        let ref = $('#ref').val();
+
+        if (ref < 1 || ref > 2) {
+          alert('Invalid semester!');
+          return;
+        }
+
+        let semester = year + '/' + ref;
+
+        if (!(semester in question.record))
+          question.record[semester] = {};
+
+        loadRecord(question.record);
+      }
+    );
+
+
+    $('#remove-semester').click(
+      () => {
+        let selected = $('#semesters option:selected');
+        let semester = selected.text();
+
+        if (!semester || !confirm('Remove semester ' + semester + ' ?'))
+          return;
+
+        delete question.record[semester];
+
+        selected.remove();
+        $('#semester').empty();
+      }
+    );
+
+
+    $('#save').click(save);
+
+    if (id)
+      question = await load(id);
   }
 );

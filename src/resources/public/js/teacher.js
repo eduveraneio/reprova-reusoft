@@ -1,124 +1,101 @@
-function mean(arr) {
-  if (arr.length == 0)
-    return 0;
-
-  let sum = arr.reduce((a, b) => a + b);
-
-  return sum / arr.length;
+function textboxEmpty(tbox) {
+  let val = tbox.val();
+  return val == '' || val == tbox.prop('name');
 }
 
+async function load() {
+  const request = await fetch(
+    '/api/persons?token=' + token + '&id=' + id
+  );
+  const person = await request.json();
 
-function table_build_section(rows, container_elem, row_elem, cell_elem) {
-  function str_or_obj(x) {
-    x = typeof x === 'string' ? { name: x } : x;
+  $('#name').val(person.name);
+  $('#email').val(person.email);
+  $('#type').val(person.type);
+  $('#password').val(person.password);
 
-    x.className = x.className || '';
+  return person;
+}
 
-    return x;
-  };
+async function save() {
+  const name = $('#name');
+  const email = $('#email');
+  const password = $('#password');
 
-  container_elem = str_or_obj(container_elem);
-  row_elem = str_or_obj(row_elem);
-  cell_elem = str_or_obj(cell_elem);
-
-  let container = document.createElement(container_elem.name);
-  container.className = container_elem.className;
-
-  for (row of rows) {
-    let row_container = document.createElement(row_elem.name);
-    row_container.className = row_elem.className;
-
-    for (cell of row) {
-      let cell_container = document.createElement(cell_elem.name);
-      cell_container.className = cell_elem.className;
-      cell_container.colSpan = cell.colSpan || '1';
-
-      if (cell.elem)
-        cell_container.appendChild(cell.elem);
-      else
-        cell_container.appendChild(document.createTextNode(cell.text || cell));
-
-      row_container.appendChild(cell_container);
-    }
-
-    container.appendChild(row_container);
+  if (textboxEmpty(name)) {
+    alert('Please fill in the name!');
+    name.focus();
+    return;
   }
 
-  return container;
-}
+  if (textboxEmpty(email)) {
+    alert('Please fill in the email!');
+    email.focus();
+    return;
+  }
+  
+  if (textboxEmpty(password)) {
+    alert('Please fill in the password!');
+    password.focus();
+    return;
+  }
 
-function personsTable(data) {
-  const headers = [
-    [ { text: 'Teachers', colSpan: '5' } ],
-    [ 'Name', 'Email' ]
-  ];
-  const rows = data.map(
-    q => {
-      // wordwrap works better if the element is enclosed by a div.
-      let name = document.createElement('div');
-      name.className = 'name';
-      name.appendChild(document.createTextNode(q.name));
+  person = {
+    'name': name.val(),
+    'email': email.val(),
+    'password': password.val(),
+    'type': '1'
+  };
 
-	    return [
-	      { elem: name },
-	      q.email
-	    ];
-    }
-  );
+  if (id)
+    person['id'] = id;
 
-  let table = document.createElement('table');
-  table.className = 'questions-table';
-
-  table.appendChild(
-    table_build_section(
-      headers,
-      'thead',
-      'tr',
-      { name: 'th', className: 'questions-header' }
-    )
-  );
-  table.appendChild(
-    table_build_section(
-      rows,
-      'tbody',
-      'tr',
-      { name: 'td', className: 'questions-cell' }
-    )
-  );
-
-  return table;
-}
-
-async function loadPersons() {
-  const request = await fetch('/api/persons?type=1&token=' + token);
-  const response = await request.json();
-
-console.log(response);
-
-  let table = personsTable(response);
-  table.id = 'persons';
-
-  $('#person').append(table);
-
-  return $('#persons').DataTable(
+  const request = await fetch(
+    '/api/persons?token=' + token,
     {
-      'columnDefs': [
-        {
-          'max-width': '35%',
-          'targets': 0
-        }
-      ],
+      method: 'post',
+      body: JSON.stringify(person)
     }
   );
+
+  if (request.ok) {
+    alert('Success to upload teacher!');
+    window.location = token ? '/teachers.html?token=' + token
+                            : '/teachers.html';
+  }
+  else
+    alert('Failed to upload teacher!');
 }
+
 
 const url = new URL(window.location.href);
 const token = url.searchParams.get("token");
+const id = url.searchParams.get("id");
 
-let personsDataTable;
+let person = {
+  record: {}
+};
 
-$(document).ready( 	
-  async () => {   
-  	personsDataTable = await loadPersons();  
+$(document).ready(
+  async() => {
+    const inputs = $('input[type=text],input[type=password]');
+
+    inputs.focus(
+      function() {
+          $(this).val('');
+      }
+    );
+
+    inputs.blur(
+      function() {
+        if ($(this).val() == '')
+          $(this).val($(this).prop('name'));
+      }
+    );
+
+    $('#save').click(save);
+
+    if (id)
+      person = await load(id);
   }
 );

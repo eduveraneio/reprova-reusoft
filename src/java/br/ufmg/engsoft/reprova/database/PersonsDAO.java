@@ -134,7 +134,7 @@ public class PersonsDAO {
 
     var result = new ArrayList<Person>();
 
-    doc.projection(fields(exclude("statement")))
+    doc.projection(fields())
       .map(this::parseDoc)
       .into(result);
 
@@ -155,7 +155,8 @@ public class PersonsDAO {
     Document doc = new Document()
       .append("name", person.name)
       .append("email", person.email)
-      .append("password", person.password);
+      .append("password", person.password)
+      .append("type", person.type);
 
     var id = person.id;
     if (id != null) {
