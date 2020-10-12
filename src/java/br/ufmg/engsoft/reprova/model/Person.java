@@ -26,7 +26,7 @@ public class Person {
   /**
    * The type of the person. Mustn't be null nor empty.
    */
-  public final Integer type;
+  public final String type;
 
 
   /**
@@ -37,7 +37,7 @@ public class Person {
     protected String name;
     protected String email;
     protected String password;
-    protected Integer type;
+    protected String type;
 
     public Builder id(String id) {
       this.id = id;
@@ -59,7 +59,7 @@ public class Person {
       return this;
     }
     
-    public Builder type(Integer type) {
+    public Builder type(String type) {
       this.type = type;
       return this;
     }
@@ -108,7 +108,7 @@ public class Person {
     String name,
     String email,
     String password,
-    Integer type
+    String type
   ) {
     this.id = id;
     this.name = name;

@@ -36,7 +36,7 @@ public class PersonsDAO {
   protected final Json json;
 
   /**
-   * Questions collection.
+   * Persons collection.
    */
   protected final MongoCollection<Document> collection;
 
@@ -89,7 +89,7 @@ public class PersonsDAO {
 
   /**
    * Get the person with the given id.
-   * @param id  the question's id in the database.
+   * @param id  the person's id in the database.
    * @return The person, or null if no such person.
    * @throws IllegalArgumentException  if any parameter is null
    */
@@ -109,19 +109,20 @@ public class PersonsDAO {
   }
 
   /**
-   * List all the questions that match the given non-null parameters.
-   * The question's statement is ommited.
-   * @param theme      the expected theme, or null
-   * @param pvt        the expected privacy, or null
-   * @return The questions in the collection that match the given parameters, possibly
+   * List all the persons that match the given non-null parameters.
+   * The person's statement is ommited.
+   * @param name      the expected name, or null
+   * @param email     the expected email, or null
+   * @return The persons in the collection that match the given parameters, possibly
    *         empty.
-   * @throws IllegalArgumentException  if there is an invalid Question
+   * @throws IllegalArgumentException  if there is an invalid Person
    */
-  public Collection<Person> list(String name, String email) {
+  public Collection<Person> list(String name, String email, String type) {
     var filters =
       Arrays.asList(
         name == null ? null : eq("name", name),
-        email == null ? null : eq("email", email)
+        email == null ? null : eq("email", email),
+        type == null ? null : eq("type", type)
       )
       .stream()
       .filter(Objects::nonNull) // mongo won't allow null filters.
@@ -143,7 +144,7 @@ public class PersonsDAO {
   /**
    * Adds or updates the given person in the database.
    * If the given person has an id, update, otherwise add.
-   * @param question  the person to be stored
+   * @param person  the person to be stored
    * @return Whether the person was successfully added.
    * @throws IllegalArgumentException  if any parameter is null
    */

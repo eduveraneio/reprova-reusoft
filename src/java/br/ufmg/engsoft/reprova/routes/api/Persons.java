@@ -92,18 +92,19 @@ public class Persons {
     logger.info("Received persons get:");
 
     var id = request.queryParams("id");
+    var type = request.queryParams("type");
     var auth = authorised(request.queryParams("token"));
 
-    return id == null
-      ? this.get(request, response, auth)
-      : this.get(request, response, id, auth);
+    return id != null
+      ? this.getById(request, response, id, auth)
+      : this.getByType(request, response, type, auth);
   }
 
   /**
    * Get id endpoint: fetch the specified person from the database.
    * If not authorised, and the given person is private, returns an error message.
    */
-  protected Object get(Request request, Response response, String id, boolean auth) {
+  protected Object getById(Request request, Response response, String id, boolean auth) {
     if (id == null)
       throw new IllegalArgumentException("id mustn't be null");
 
@@ -136,12 +137,12 @@ public class Persons {
    * Get all endpoint: fetch all persons from the database.
    * If not authorised, fetches only public persons.
    */
-  protected Object get(Request request, Response response, boolean auth) {
+  protected Object getByType(Request request, Response response, String type, boolean auth) {
     response.type("application/json");
 
     logger.info("Fetching persons.");
     
-    var persons = personsDAO.list(null, null);
+    var persons = personsDAO.list(null, null, type);
 
     logger.info("Done. Responding...");
 

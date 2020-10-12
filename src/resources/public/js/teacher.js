@@ -90,8 +90,10 @@ function personsTable(data) {
 }
 
 async function loadPersons() {
-  const request = await fetch('/api/persons?token=' + token);
+  const request = await fetch('/api/persons?type=1&token=' + token);
   const response = await request.json();
+
+console.log(response);
 
   let table = personsTable(response);
   table.id = 'persons';
