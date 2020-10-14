@@ -1,6 +1,7 @@
 # Software Reuse
 
-## Reprova
+## Reprova:
+Sistema para controle de questões de provas.
 
 ## Configuração do ambiente
 - Instalação do Eclipse
